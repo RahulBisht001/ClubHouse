@@ -1,4 +1,4 @@
-# Club House Podcast App
+# ClubHouse Podcast App
 ____________________________
 
 
