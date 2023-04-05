@@ -15,7 +15,7 @@ ____________________________
     imported from Navigation.module.css and to add the css from
     this module we need to Write this kind of syntax
 
-```
+```javascript
 className={`${styles.navbar} container`} 
 ```
 
@@ -30,6 +30,7 @@ className={`${styles.navbar} container`}
 
 Resource : StackOverFlow
 
+
 * `Attempted import error: 'Switch' is not exported from 'react-router-dom'`
 
 Solution : https://tinyl.io/8FsQ
@@ -38,15 +39,18 @@ In react-router-dom v6, "Switch" is replaced by routes "Routes".
 You need to update the import
 
 from 
+
 ``` javascript
-import { Switch, Route } from "react-router-dom"; ```
+import { Switch, Route } from "react-router-dom";
+```
 
 To 
 ```javascript
  import { Routes ,Route } from 'react-router-dom';
   ```
 
-You also need to update the Route declaration from
+You also need to update the Route declaration 
+from
 ```javascript
 <Route path="/" component={Home} />
 ```
@@ -54,6 +58,7 @@ to
 ```javascript
 <Route path='/' element={<Home/>} />
 ```
+
 
 
 
