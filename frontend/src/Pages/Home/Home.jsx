@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 
 import Card from '../../Components/shared/Card/Card'
@@ -11,6 +11,7 @@ import styles from './Home.module.css'
 
 const Home = () => {
 
+    //  Inline Css in the Form of object
     const signinLinkStyle = {
         color: '#0077ff',
         textDecoration: 'none',
@@ -18,6 +19,11 @@ const Home = () => {
         marginLeft: '10px'
     }
 
+
+    const navigate = useNavigate()
+    const startRegister = () => {
+        navigate('/register')
+    }
 
 
     return (
@@ -34,7 +40,9 @@ const Home = () => {
                 </p >
 
                 <div>
-                    <Button text="Get Your UserName" />
+                    {/* Button is a Component here and we can't directly add 
+                    an onClick event here so we pass it as a prop */}
+                    <Button onClick={startRegister} text="Get Your UserName" />
                 </div>
 
                 <div className={styles.signinWrapper}>
