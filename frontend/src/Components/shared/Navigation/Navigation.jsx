@@ -18,14 +18,19 @@ const Navigation = () => {
         marginLeft: '12px',
     }
 
+    const logoStyle = {
+        width: '40px',
+        height: '40px',
+    }
 
     return (
+
         <nav className={`${styles.navbar} container`} >
             <Link
                 to="/"
                 style={brandStyle}
             >
-                <img src="/images/logo.png" alt="Logo" />
+                <img style={logoStyle} src="/images/Spotify.png" alt="Logo" />
                 <span style={logoText}>Club House</span>
             </Link>
         </nav >

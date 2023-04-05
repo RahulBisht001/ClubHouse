@@ -13,8 +13,7 @@ function App() {
   return (
     <BrowserRouter>
 
-      <Navigation
-      />
+      <Navigation />
 
       <Routes>
         <Route
