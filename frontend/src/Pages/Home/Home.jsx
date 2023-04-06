@@ -13,9 +13,9 @@ const Home = () => {
 
     //  Inline Css in the Form of object
     const signinLinkStyle = {
-        color: '#0077ff',
+        color: ' #9000ff',
         textDecoration: 'none',
-        fontWeight: '600',
+        fontWeight: '500',
         marginLeft: '10px'
     }
 
