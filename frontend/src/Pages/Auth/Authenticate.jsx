@@ -4,9 +4,8 @@ import { useState } from 'react'
 
 import styles from './Authenticate.module.css'
 
-
-import StepOTP from '../Steps/StepOTP/StepOTP'
 import StepPhoneEmail from '../Steps/StepPhoneEmail/StepPhoneEmail'
+import StepOTP from '../Steps/StepOTP/StepOTP'
 
 const steps = {
     1: StepPhoneEmail,
@@ -25,7 +24,6 @@ const Authenticate = () => {
 
     return (
         <>
-            <h1>Hello From Authentication</h1>
             <Step onNext={onNext} />
         </>
     )
