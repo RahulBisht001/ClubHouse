@@ -10,7 +10,7 @@ import TextInput from '../../../../Components/shared/TextInput/TextInput'
 import styles from '../StepPhoneEmail.module.css'
 
 
-const Email = () => {
+const Email = ({ onNext }) => {
 
     const [email, setEmail] = useState('')
 
@@ -25,7 +25,7 @@ const Email = () => {
             />
             <div>
                 <div className={styles.actionButtonWrap}>
-                    <Button text="Next" />
+                    <Button onClick={onNext} text="Next" />
                 </div>
 
                 <p className={styles.bottomParagraph}>

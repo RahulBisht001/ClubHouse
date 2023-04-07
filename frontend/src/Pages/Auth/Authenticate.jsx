@@ -2,7 +2,7 @@ import React from 'react'
 import { useState } from 'react'
 
 
-import styles from './Authenticate.module.css'
+// import styles from './Authenticate.module.css'
 
 import StepPhoneEmail from '../Steps/StepPhoneEmail/StepPhoneEmail'
 import StepOTP from '../Steps/StepOTP/StepOTP'
@@ -19,6 +19,7 @@ const Authenticate = () => {
     const Step = steps[step]
 
     const onNext = () => {
+        console.log('HI Rahul')
         setStep(step + 1)
     }
 

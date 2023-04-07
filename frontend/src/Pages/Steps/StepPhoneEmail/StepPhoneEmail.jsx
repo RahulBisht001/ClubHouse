@@ -8,21 +8,17 @@ import styles from './StepPhoneEmail.module.css'
 import Phone from './Phone/Phone'
 import Email from './Email/Email'
 
+const phoneEmailMap = {
+    phone: Phone,
+    email: Email
+}
 
-const StepPhoneEmail = () => {
 
-    const phoneEmailMap = {
-        phone: Phone,
-        email: Email
-    }
+const StepPhoneEmail = ({ onNext }) => {
 
     const [type, setType] = useState('phone')
 
     const Component = phoneEmailMap[type]
-
-    const onNext = () => {
-
-    }
 
     return (
         <>
