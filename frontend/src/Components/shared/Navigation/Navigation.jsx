@@ -16,11 +16,15 @@ const Navigation = () => {
 
     const logoText = {
         marginLeft: '12px',
+        fontSize: '24px',
+        fontFamily: "'Pacifico', cursive",
+        letterSpacing: '.2ch'
     }
 
     const logoStyle = {
-        width: '40px',
-        height: '40px',
+        width: '55px',
+        height: '50px',
+        borderRadius: '10px'
     }
 
     return (
@@ -30,7 +34,7 @@ const Navigation = () => {
                 to="/"
                 style={brandStyle}
             >
-                <img style={logoStyle} src="/images/Spotify.png" alt="Logo" />
+                <img style={logoStyle} src="/images/microphone.png" alt="Logo" />
                 <span style={logoText}>Club House</span>
             </Link>
         </nav >
