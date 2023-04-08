@@ -3,4 +3,4 @@ Content-Type: application/json
 
 {
     "phone":"+918534049294"
-}
+} 

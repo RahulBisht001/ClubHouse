@@ -19,8 +19,25 @@ ____________________________
 className={`${styles.navbar} container`} 
 ```
 
+______________________________________________________________
+* crypto:
 
+It is build it node module which has a lot of methods like randomInt , randomBytes, createHmac etc
 
+* Learning about Classes 
+Syntax : 
+
+```javascript
+class HashService {
+    hashOtp(data) {
+        // code
+    }
+}
+```
+
+we don't need to add the function keyword in the method. simply write the name of method and logic
+
+* Authentication 
 
 
 

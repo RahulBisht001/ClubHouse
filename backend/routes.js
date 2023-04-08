@@ -1,13 +1,13 @@
 const express = require('express')
-
 const router = express.Router()
 
 
+const authController = require('./Controllers/auth-controller')
 
-router.post('/api/send-otp', (req, res) => {
 
-    res.send('Hello From OTP Route')
-})
+
+router.post('/api/send-otp', authController.sendOTP)
+router.post('/api/verify-otp', authController.verifyOtp)
 
 
 module.exports = router
