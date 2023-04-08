@@ -1,5 +1,7 @@
 const otpService = require('../services/otp-service')
 const HashService = require('../services/hash-service')
+const userService = require('../services/user-service')
+
 
 class AuthController {
     async sendOTP(req, res) {
@@ -49,7 +51,7 @@ class AuthController {
 
         const [hashedOtp, expires] = hash.split('.')
 
-        if (Date.now() > expires) {
+        if (Date.now() > +expires) {
             res.status(400).json({
                 message: 'OTP Expired !'
             })
@@ -61,6 +63,22 @@ class AuthController {
         if (!isValid) {
             res.json({
                 message: 'Invalid OTP'
+            })
+        }
+
+        let user, accessToken, refreshToken
+
+        try {
+            user = await userService.findUser({ phone })
+            if (!user) {
+                user = await userService.createUser({ phone })
+            }
+        } catch (err) {
+            console.log('Error occured while finding the user in the Database')
+            console.log(err.message)
+
+            res.status(500).json({
+                message: "DB Error while finding / creating user"
             })
         }
     }
