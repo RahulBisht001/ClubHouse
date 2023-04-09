@@ -24,9 +24,13 @@ class otpService {
         })
     }
 
-    verifyOtp(hashedOtp, otp) {
-        let computedHash = hashService.hashOtp(data)
-        return computedHash === otp
+    async verifyOtp(hashedOtp, data) {
+        let val
+        await hashService.hashOtp(data)
+            .then(result => {
+                val = result
+            });
+        return val === hashedOtp
     }
 }
 

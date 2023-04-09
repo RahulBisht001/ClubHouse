@@ -37,13 +37,61 @@ class HashService {
 
 we don't need to add the function keyword in the method. simply write the name of method and logic
 
+* we have user `.env` file heavily.
+
 * Authentication 
+
+* How to Make Serer Request from Client
+
+1. we can user Fetch API method
+2. But in this Project we Use `Axios` from this purpose.
+
+#### Axios
+
+axios is kind of updated version of Fetch API method in JS but not in reality.
+e.g :  simple GET request with axios
+
+```javascript
+axios.get('https://jsonplaceholder.typicode.com/users')
+  .then(response => {
+    console.log(response.data);
+  })
+  .catch(error => {
+    console.log(error);
+  });
+```
+
+
+###### Popularity Reasons
+
+`Axios has a simpler API`  -:
+
+Axios provides a simpler and more intuitive API compared to the Fetch API. With Axios, 
+you can make HTTP requests with just a few lines of code, whereas with the Fetch API,
+the syntax can be more complex and verbose.
+
+` Built in Error handler` -:
+
+Axios automatically handles errors that occur during the request, making it easier to handleerrors in your code. It is not available with Fetch API.
+  
+`Axios supports request cancellation` -:
+  
+With Axios, you can easily cancel a request by using a cancel token. This is useful when you needto cancel a request that is no longer needed, such as when a user navigates away from a page.
+
+`Axios supports interceptors` -:
+
+Axios supports interceptors, which allow you to intercept and modify requests and responses. Thisis useful for adding headers to requests, handling authentication, and more.
+
+ 
+__ How to use `axios` library
+1. make the instance of `axios`
 
 
 
 ### Errors Occured During the Project
 
-#### There are some common error because of Deprecation and  updates in `react-router-dom`
+#####  There are some common error because of Deprecation and  updates in
+ `react-router-dom`
 
 Resource : StackOverFlow
 

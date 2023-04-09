@@ -4,3 +4,13 @@ Content-Type: application/json
 {
     "phone":"+918534049294"
 } 
+
+### 
+POST  http://localhost:8000/api/verify-otp HTTP/1.1
+Content-Type: application/json
+
+{
+    "phone":"+918534049294",
+    "otp":4344,
+    "hash":"7101275049989ee0f1d9fc96f1bc92937c4584aaf25756e5c41218dc0cd8febe.1680970713512"
+}

@@ -1,18 +1,42 @@
 import React from 'react'
 import { useState } from 'react'
 
+import { useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
+
 
 import Card from '../../../Components/shared/Card/Card'
 import Button from '../../../Components/shared/Button/Button'
 import TextInput from '../../../Components/shared/TextInput/TextInput'
 
+import { verifyOtp } from '../../../HTTP'
 
-
+import { setAuth } from '../../../store/authSlice'
 import styles from './StepOTP.module.css'
 
-const StepOTP = ({ onNext }) => {
+
+
+const StepOTP = () => {
 
     const [otp, setOtp] = useState(0)
+    const { phone, hash } = useSelector((state) => state.auth.otp)
+
+    const dispatch = useDispatch()
+
+
+    const submit = async () => {
+        try {
+            const { data } = await verifyOtp({ otp, phone, hash })
+            console.log(data)
+            dispatch(setAuth(data))
+
+        } catch (err) {
+            console.log('Error Occured while sending Otp for verification the server')
+            console.log(err.message)
+        }
+    }
+
+
     return (
         <div className={styles.cardWrapper} >
             <Card
@@ -25,7 +49,7 @@ const StepOTP = ({ onNext }) => {
                 />
                 <div>
                     <div className={styles.actionButtonWrap}>
-                        <Button onClick={onNext} text="Next" />
+                        <Button onClick={submit} text="Next" />
                     </div>
 
                     <p className={styles.bottomParagraph}>
