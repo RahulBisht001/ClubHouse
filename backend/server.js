@@ -1,6 +1,9 @@
 const express = require('express')
+const path = require('path')
 const dotenv = require('dotenv')
 const cors = require('cors')
+const cookieParser = require('cookie-parser')
+
 
 const router = require('./routes')
 const DBConnect = require('./database')
@@ -10,12 +13,16 @@ dotenv.config()
 
 const PORT = process.env.PORT || 5500
 const corsOption = {
+    credentials: true,
     origin: ['http://localhost:3000']
 }
 
+app.use(cookieParser())
 app.use(cors(corsOption))
-app.use(express.json())
+app.use(express.json({ limit: '10mb' }))
 app.use(router)
+app.use('/storage', express.static(path.join(__dirname, 'storage')))
+
 
 DBConnect()
 

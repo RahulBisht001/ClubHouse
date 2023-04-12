@@ -27,7 +27,7 @@ const StepOTP = () => {
     const submit = async () => {
         try {
             const { data } = await verifyOtp({ otp, phone, hash })
-            console.log(data)
+            // console.log(data)
             dispatch(setAuth(data))
 
         } catch (err) {
@@ -35,7 +35,6 @@ const StepOTP = () => {
             console.log(err.message)
         }
     }
-
 
     return (
         <div className={styles.cardWrapper} >

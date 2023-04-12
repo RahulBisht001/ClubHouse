@@ -89,13 +89,124 @@ class AuthController {
             activated: false
         })
 
+        // Storing the refreshToken in the Server
+        await tokenService.storeRefreshToken(refreshToken, user._id)
+
+
         res.cookie('refreshToken', refreshToken, {
             maxAge: 1000 * 60 * 60 * 24 * 30,
             httpOnly: true
         })
 
+        res.cookie('accessToken', accessToken, {
+            maxAge: 1000 * 60 * 60 * 24 * 30,
+            httpOnly: true
+        })
+
         const userDto = new UserDto(user)
-        res.json({ accessToken, user: userDto })
+
+        /*
+        auth inside the response is a flag which shows the client that
+        accessToken and refreshToken are stored inside the cookie successfully 
+        */
+        res.json({ user: userDto, auth: true })
+    }
+
+
+    async refresh(req, res) {
+
+        /*
+          Steps: 
+          1. get the Refresh Token from the Cookie
+          2. check the Validity of RefreshToken
+          3. Check if Refresh Token is Available in DataBase
+          4. Check if user is available in DataBase
+          5. Generate new Tokens
+          6. Update refresh Token in the DataBase
+          7. put these tokens in cookie
+          8. send response
+        */
+
+
+        // Step 1 : get the Refresh Token from the Cookie
+        const { refreshToken: refreshTokenFromCookie } = req.cookies
+
+        // Step 2 : check the Validity of RefreshToken
+        let userData
+
+        try {
+            userData = await tokenService.verifyRefreshToken(refreshTokenFromCookie)
+        } catch (err) {
+
+            return res.status(401).json({
+                message: 'Invalid Refresh Token'
+            })
+        }
+
+        // Step 3 : Check if Refresh Token is Available in DataBase
+        try {
+            const token = await tokenService
+                .findRefreshToken(userData._id, refreshTokenFromCookie)
+
+            if (!token) {
+                return res.status(401).json({
+                    message: 'Invalid Refresh Token'
+                })
+            }
+        }
+        catch (err) {
+            return res.status(500).json({
+                message: 'Internal DataBase Error in authController '
+            })
+        }
+
+        // Step 4 : Check if user is available in DataBase
+
+        const user = userService.findUser({ _id: userData._id })
+        if (!user)
+            return res.status(404).json({
+                message: 'User Not Found'
+            })
+
+
+        // Step 5 : Generate new Tokens
+        const { accessToken, refreshToken } = tokenService.generateTokens({
+            _id: userData._id,
+        })
+
+        // Step 6 : Update refresh Token in the DataBase
+
+        try {
+
+            await tokenService.updateRefreshToken(userData._id, refreshToken)
+        }
+        catch (err) {
+            console.log('Error while Updating the RefreshToken')
+            res.status(500).json({
+                message: 'Internal error'
+            })
+        }
+
+        // Step  7 :  put these tokens in cookie
+        res.cookie('refreshToken', refreshToken, {
+            maxAge: 1000 * 60 * 60 * 24 * 30,
+            httpOnly: true
+        })
+
+        res.cookie('accessToken', accessToken, {
+            maxAge: 1000 * 60 * 60 * 24 * 30,
+            httpOnly: true
+        })
+
+
+        const userDto = new UserDto(user)
+        /*
+        auth inside the response is a flag which shows the client that
+        accessToken and refreshToken are stored inside the cookie successfully 
+        */
+
+        // Step  8 : send response
+        res.json({ user: userDto, auth: true })
     }
 }
 

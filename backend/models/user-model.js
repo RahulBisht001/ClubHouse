@@ -6,6 +6,14 @@ const userSchema = mongoose.Schema({
         required: true,
         unique: true
     },
+    name: {
+        type: String,
+        required: false
+    },
+    avatar: {
+        type: String,
+        required: false
+    },
     activated: {
         type: Boolean,
         required: true,

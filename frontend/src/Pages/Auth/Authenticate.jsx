@@ -19,7 +19,6 @@ const Authenticate = () => {
     const Step = steps[step]
 
     const onNext = () => {
-        console.log('HI Rahul')
         setStep(step + 1)
     }
 

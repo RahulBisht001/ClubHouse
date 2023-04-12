@@ -19,11 +19,10 @@ const Phone = ({ onNext }) => {
 
     const submit = async () => {
         // Make server request
-
         const { data } = await sendOtp({
             phone: phoneNumber
         })
-        console.log(data)
+        // console.log(data)
         dispatch(setOtp({ phone: data.phone, hash: data.hash }))
         onNext()
     }
