@@ -5,6 +5,8 @@ const tokenService = require('../services/token-service')
 
 const UserDto = require('../dtos/user-dto')
 
+require('dotenv').config()
+
 class AuthController {
     async sendOTP(req, res) {
         const { phone } = req.body
@@ -83,11 +85,16 @@ class AuthController {
             })
         }
 
+
         // Tokens
-        const { accessToken, refreshToken } = tokenService.generateTokens({
+        // console.log(user._id)
+        const { accessToken, refreshToken } = await tokenService.generateTokens({
             _id: user._id,
             activated: false
         })
+
+        // console.log(`RefreshToken : ${refreshToken}`)
+        // console.log(`AccessToken : ${accessToken}`)
 
         // Storing the refreshToken in the Server
         await tokenService.storeRefreshToken(refreshToken, user._id)
@@ -132,14 +139,16 @@ class AuthController {
         const { refreshToken: refreshTokenFromCookie } = req.cookies
 
         // Step 2 : check the Validity of RefreshToken
-        let userData
+        let userData  // (This is Token Data of particular User)
 
         try {
+            console.log(refreshTokenFromCookie)
             userData = await tokenService.verifyRefreshToken(refreshTokenFromCookie)
+            // console.log(userData)
         } catch (err) {
-
+            console.log(err.message)
             return res.status(401).json({
-                message: 'Invalid Refresh Token'
+                message: 'Invalid Refresh Token 1'
             })
         }
 
@@ -148,9 +157,10 @@ class AuthController {
             const token = await tokenService
                 .findRefreshToken(userData._id, refreshTokenFromCookie)
 
+            // console.log(`Token : ${token}`
             if (!token) {
                 return res.status(401).json({
-                    message: 'Invalid Refresh Token'
+                    message: 'Invalid Refresh Token 2'
                 })
             }
         }
@@ -162,7 +172,8 @@ class AuthController {
 
         // Step 4 : Check if user is available in DataBase
 
-        const user = userService.findUser({ _id: userData._id })
+        const user = await userService.findUser({ _id: userData._id })
+        // console.log(`user is : ${user}`)
         if (!user)
             return res.status(404).json({
                 message: 'User Not Found'
@@ -170,10 +181,12 @@ class AuthController {
 
 
         // Step 5 : Generate new Tokens
-        const { accessToken, refreshToken } = tokenService.generateTokens({
+
+        const { accessToken, refreshToken } = await tokenService.generateTokens({
             _id: userData._id,
         })
 
+        console.log(`refreshToken auth : ${refreshToken}`)
         // Step 6 : Update refresh Token in the DataBase
 
         try {

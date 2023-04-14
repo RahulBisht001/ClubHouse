@@ -10,17 +10,21 @@ const refreshTokenSecret = process.env.JWT_REFRESH_TOKEN_SECRET
 
 class TokenService {
 
-    generateTokens(payload) {
+    async generateTokens(payload) {
         const accessToken = jwt.sign(payload, accessTokenSecret, {
             expiresIn: '1m'
         })
         const refreshToken = jwt.sign(payload, refreshTokenSecret, {
             expiresIn: '1y'
         })
+        // console.log(`RefreshToken : ${refreshToken}`)
+        // console.log(`AccessToken : ${accessToken}`)
         return { accessToken, refreshToken }
     }
 
     async storeRefreshToken(token, userId) {
+        // console.log(token)
+        // console.log(userId)
         try {
             await refreshModel.create({
                 token,
@@ -34,6 +38,7 @@ class TokenService {
     }
 
     async verifyAccessToken(token) {
+
         return jwt.verify(token, accessTokenSecret)
     }
 
@@ -51,7 +56,11 @@ class TokenService {
 
     async updateRefreshToken(userId, refreshToken) {
 
-        return await refreshModel.updateOne({ userId: userId }, { token: refreshToken })
+        console.log(`refreshToken Token service : ${refreshToken}`)
+        return await refreshModel.updateOne(
+            { userId: userId },
+            { token: refreshToken }
+        )
     }
 }
 

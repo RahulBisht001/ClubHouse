@@ -6,15 +6,20 @@ import Navigation from './Components/shared/Navigation/Navigation'
 import Home from './Pages/Home/Home'
 
 
-
 import Authenticate from './Pages/Auth/Authenticate'
 import Activate from './Pages/Activate/Activate'
 import Rooms from './Pages/Rooms/Rooms'
 
 import { useSelector } from 'react-redux'
+import { useLoadingWithRefresh } from './hooks/useLoadingWithRefresh'
 
 function App() {
-  return (
+
+  const { loading } = useLoadingWithRefresh();
+
+  return loading ?
+    "Loading . . ." :
+    (
     <BrowserRouter>
 
       <Navigation />

@@ -8,7 +8,8 @@ const api = axios.create({
     withCredentials: true,
     headers: {
         'Content-Type': 'application/json',
-        'Accept': 'application/json'
+        'Accept': 'application/json',
+        'Authorization': 'Bearer '
     }
 })
 
@@ -54,8 +55,4 @@ api.interceptors.response.use((config) => {
 
     throw error
 })
-
-
-
-
 export default api
