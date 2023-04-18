@@ -10,16 +10,26 @@ import { setAuth } from '../../../store/authSlice'
 import { activate } from '../../../HTTP/index'
 
 import styles from './StepAvatar.module.css'
+import Loader from '../../../Components/shared/Loader/Loader'
 
 
 const StepAvatar = ({ onNext }) => {
 
     const [image, setImage] = useState('/images/monkey-avatar.png')
+    const [loading, setLoading] = useState(false)
     const dispatch = useDispatch('')
     const { name, avatar } = useSelector((state) => state.activate)
 
 
     const submit = async () => {
+
+        if (!name || !avatar) {
+            alert('Name or Avatar Field is Empty')
+            return
+        }
+
+        setLoading(true)
+
         try {
             const { data } = await activate({
                 name,
@@ -29,13 +39,14 @@ const StepAvatar = ({ onNext }) => {
             if (data.auth) {
                 dispatch(setAuth(data))
             }
-            // console.log(data)
         }
         catch (err) {
             console.log('Error in the StepAvatar Component')
             console.log(err.message)
         }
-        // onNext()
+        finally {
+            setLoading(false)
+        }
     }
 
     const captureImage = (e) => {
@@ -48,6 +59,10 @@ const StepAvatar = ({ onNext }) => {
         }
 
     }
+
+    if (loading)
+        return <Loader message={"Activation in Progress . . ."} />
+
     return (
         <>
             <Card

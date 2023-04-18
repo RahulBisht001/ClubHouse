@@ -8,9 +8,9 @@ const Card = ({ title, icon, children }) => {
         <div className={`${styles.card}`}>
 
             <div className={`${styles.headingWrapper}`}>
-                <img className={`${icon === 'logo' ? 'wave' : ''}`}
-                    src={`/images/${icon}.png`} alt="headingLogo" />
-                <h1 className={`${styles.heading}`}>{title}</h1>
+                {icon && <img className={`${icon === 'logo' ? 'wave' : ''}`}
+                    src={`/images/${icon}.png`} alt="headingLogo" />}
+                {title && <h1 className={`${styles.heading}`}>{title}</h1>}
             </div>
 
 

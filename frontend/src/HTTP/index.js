@@ -28,6 +28,7 @@ This will trigger the backend router and send these fields as data
 data = {name , avatar} */
 export const activate = (data) => api.post('/api/activate', data)
 
+export const logout = () => api.post('/api/logout')
 
 
 // Interceptors

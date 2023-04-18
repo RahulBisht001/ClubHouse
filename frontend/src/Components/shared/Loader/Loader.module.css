@@ -1,0 +1,16 @@
+.message {
+    color: white;
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.spinner {
+    margin-bottom: 20px;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    100% {
+        transform: rotate(360deg);
+    }
+}

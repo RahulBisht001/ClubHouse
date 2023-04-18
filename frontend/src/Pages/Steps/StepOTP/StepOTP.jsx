@@ -25,9 +25,13 @@ const StepOTP = () => {
 
 
     const submit = async () => {
+
+        if (!otp || !phone || !hash) {
+            alert('Otp Field is Empty')
+            return
+        }
         try {
             const { data } = await verifyOtp({ otp, phone, hash })
-            // console.log(data)
             dispatch(setAuth(data))
 
         } catch (err) {
@@ -35,6 +39,7 @@ const StepOTP = () => {
             console.log(err.message)
         }
     }
+
 
     return (
         <div className={styles.cardWrapper} >

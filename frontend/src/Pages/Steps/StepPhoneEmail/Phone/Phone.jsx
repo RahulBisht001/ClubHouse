@@ -18,6 +18,12 @@ const Phone = ({ onNext }) => {
     const dispatch = useDispatch()
 
     const submit = async () => {
+
+        // Don't make any server request if Phone field is empty
+        if (!phoneNumber) {
+            alert('Phone Field is Empty')
+            return
+        }
         // Make server request
         const { data } = await sendOtp({
             phone: phoneNumber
