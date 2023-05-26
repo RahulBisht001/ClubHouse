@@ -40,10 +40,13 @@
 }
 
 .peopleCount {
-    text-align: right;
+    /* text-align: right; */
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
 }
 
 .peopleCount span {
-    font-weight: bold;
+    /* font-weight: bold; */
     margin-right: 5px;
 }

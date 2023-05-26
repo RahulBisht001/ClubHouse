@@ -39,7 +39,8 @@ button {
 }
 body {
     background: #121212;
-    font-family: 'Nunito', sans-serif;
+    /* font-family: 'Nunito', sans-serif; */
+        font-family: 'Rubik', sans-serif;
     color: #fff;
 }
 

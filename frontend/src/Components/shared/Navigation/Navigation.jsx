@@ -8,6 +8,10 @@ import { logout } from '../../../HTTP'
 
 import styles from './Navigation.module.css'
 
+
+import LogoutRoundedIcon from '@mui/icons-material/LogoutRounded'
+import { IconButton, Tooltip } from '@mui/material'
+
 const Navigation = () => {
 
     const brandStyle = {
@@ -80,7 +84,12 @@ const Navigation = () => {
                         className={styles.logoutButton}
                         onClick={logoutUser}
                     >
-                        <img src="/images/logout.png" alt="logout" />
+                        <Tooltip title="logout">
+                            <IconButton>
+                                <LogoutRoundedIcon style={{ color: '#fff' }} />
+                            </IconButton>
+                        </Tooltip>
+                        {/* <img src="/images/logout.png" alt="logout" /> */}
                     </button>
                 </div>
             )}
