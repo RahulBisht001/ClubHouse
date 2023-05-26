@@ -18,12 +18,14 @@ class ActivateController {
         )
 
         const imagePath = `${Date.now()}-${Math.round
-            (Math.random() * 1e9)}.png `
+            (Math.random() * 1e9)}.png`
 
 
         try {
             const jimpRes = await jimp.read(buffer)
-            jimpRes.resize(150, jimp.AUTO).write(path.resolve(__dirname, `../storage/${imagePath}`))
+            jimpRes
+                .resize(150, jimp.AUTO)
+                .write(path.resolve(__dirname, `../storage/${imagePath}`))
         }
         catch (err) {
             console.log('Error in activateController')
@@ -47,11 +49,12 @@ class ActivateController {
             user.activated = true
             user.avatar = `/storage/${imagePath}`
 
-            user.save()
+            await user.save()
 
             res.json({
                 user: new userDto(user), auth: true
             })
+
         }
 
         catch (err) {

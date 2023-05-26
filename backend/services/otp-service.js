@@ -17,11 +17,14 @@ class otpService {
         return otp
     }
     async sendBySms(phone, otp) {
-        return await twilio.messages.create({
-            to: phone,
-            from: process.env.SMS_FROM_NUMBER,
-            body: `Your ClubHouse OTP is :${otp}.`
-        })
+        //^ we will unComment is later
+        //todo -----------------------------------
+        // return await twilio.messages.create({
+        //     to: phone,
+        //     from: process.env.SMS_FROM_NUMBER,
+        //     body: `Your ClubHouse OTP is :${otp}.`
+        // })
+        //todo -----------------------------------
     }
 
     async verifyOtp(hashedOtp, data) {

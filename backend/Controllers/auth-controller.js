@@ -25,7 +25,10 @@ class AuthController {
         const hash = await HashService.hashOtp(data)
         // Send OTP on the Mobile Number of the User
         try {
-            await otpService.sendBySms(phone, otp)
+            //^ we will unComment it later
+            //todo -----------------------------------
+            // await otpService.sendBySms(phone, otp)
+            //todo ----------------------------------
             res.json({
                 "hash": `${hash}.${expires}`,
                 phone,
@@ -142,8 +145,9 @@ class AuthController {
         let userData  // (This is Token Data of particular User)
 
         try {
-            console.log(refreshTokenFromCookie)
-            userData = await tokenService.verifyRefreshToken(refreshTokenFromCookie)
+            // console.log(refreshTokenFromCookie)
+            userData = await tokenService
+                .verifyRefreshToken(refreshTokenFromCookie)
             // console.log(userData)
         } catch (err) {
             console.log(err.message)
@@ -186,7 +190,7 @@ class AuthController {
             _id: userData._id,
         })
 
-        console.log(`refreshToken auth : ${refreshToken}`)
+        // console.log(`refreshToken auth : ${refreshToken}`)
         // Step 6 : Update refresh Token in the DataBase
 
         try {

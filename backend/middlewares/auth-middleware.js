@@ -6,11 +6,11 @@ module.exports = async (req, res, next) => {
     try {
         const { accessToken } = req.cookies
         if (!accessToken)
-            throw new Error()
+            throw new Error("accessToken error in middleware")
 
         userData = await tokenService.verifyAccessToken(accessToken)
         if (!userData)
-            throw new Error()
+            throw new Error("userData error in middleware")
 
         req.user = userData
         next()

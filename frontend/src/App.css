@@ -1,8 +1,10 @@
 html {
-    box-sizing: border-box;
     font-size: 16px;
 }
 
+* {
+    box-sizing: border-box;
+}
 body,
 h1,
 h2,
@@ -29,17 +31,18 @@ img {
     height: auto;
 }
 
+button {
+    border: none;
+    outline: none;
+    cursor: pointer;
+    font-weight: bold;
+}
 body {
     background: #121212;
-    font-family: 'Inter', sans-serif;
+    font-family: 'Nunito', sans-serif;
     color: #fff;
 }
 
-.container {
-    width: 1200px;
-    max-width: 90%;
-    margin: 0 auto;
-}
 .wave {
     animation-name: wave-animation;
     /* Refers to the name of your @keyframes element below */
@@ -87,9 +90,14 @@ body {
         transform: rotate(0.0deg)
     }
 }
+.container {
+    width: 1200px;
+    max-width: 90%;
+    margin: 0 auto;
+}
 .cardWrapper {
     display: flex;
     align-items: center;
     justify-content: center;
-    min-height: calc(100vh - 70px);
+    min-height: calc(100vh - 140px);
 }

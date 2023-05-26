@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 
 
@@ -17,8 +17,22 @@ const StepAvatar = ({ onNext }) => {
 
     const [image, setImage] = useState('/images/monkey-avatar.png')
     const [loading, setLoading] = useState(false)
-    const dispatch = useDispatch('')
+    const [unmounted, setUnMounted] = useState(false)
+
+
+    const dispatch = useDispatch()
     const { name, avatar } = useSelector((state) => state.activate)
+
+    const captureImage = (e) => {
+        const file = e.target.files[0]
+        const reader = new FileReader()
+        reader.readAsDataURL(file)
+        reader.onloadend = () => {
+            setImage(reader.result)
+            dispatch(setAvatar(reader.result))
+        }
+
+    }
 
 
     const submit = async () => {
@@ -37,7 +51,10 @@ const StepAvatar = ({ onNext }) => {
             })
 
             if (data.auth) {
-                dispatch(setAuth(data))
+                // check for cleanUp function
+                if (!unmounted) {
+                    dispatch(setAuth(data))
+                }
             }
         }
         catch (err) {
@@ -49,16 +66,10 @@ const StepAvatar = ({ onNext }) => {
         }
     }
 
-    const captureImage = (e) => {
-        const file = e.target.files[0]
-        const reader = new FileReader()
-        reader.readAsDataURL(file)
-        reader.onloadend = () => {
-            setImage(reader.result)
-            dispatch(setAvatar(reader.result))
-        }
 
-    }
+    useEffect(() => {
+        setUnMounted(true)
+    }, [])
 
     if (loading)
         return <Loader message={"Activation in Progress . . ."} />
@@ -76,11 +87,11 @@ const StepAvatar = ({ onNext }) => {
                 <div>
                     <input
                         onChange={captureImage}
-                        id='avatar'
+                        id='avatarInput'
                         type='file'
                         className={styles.avatarInput}
                     />
-                    <label className={styles.avatarLabel} htmlFor="avatar">
+                    <label className={styles.avatarLabel} htmlFor="avatarInput">
                         Choose a Different Photo
                     </label>
                 </div>
