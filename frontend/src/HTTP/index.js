@@ -13,8 +13,8 @@ const api = axios.create({
     }
 })
 
-// list of all the endPoints
-/*
+//^ ________ list of all the endPoints ________
+/* 
 This will trigger the backend router and send these fields as data
 data = {phone} */
 export const sendOtp = (data) => api.post('/api/send-otp', data)
@@ -30,8 +30,14 @@ export const activate = (data) => api.post('/api/activate', data)
 
 export const logout = () => api.post('/api/logout')
 
+export const createRoom = (data) => api.post('/api/rooms', data)
 
-// Interceptors
+export const getAllRooms = () => api.get('/api/rooms')
+
+
+
+//*   -------- Interceptors --------
+//*_____________________________________
 
 api.interceptors.response.use((config) => {
     return config

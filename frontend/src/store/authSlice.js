@@ -17,10 +17,12 @@ export const authSlice = createSlice({
             // Code
             const { user } = action.payload
             state.user = user
-            if (user === null)
+            if (user === null) {
                 state.isAuth = false
-            else
+            }
+            else {
                 state.isAuth = true
+            }
         },
         setOtp: (state, action) => {
             const { phone, hash } = action.payload

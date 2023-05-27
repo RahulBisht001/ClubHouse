@@ -13,8 +13,6 @@ class UserDto {
         this.createdAt = user.createdAt
         this.name = user.name
         this.avatar = user.avatar
-            ? `${process.env.BASE_URL}${user.avatar}`
-            : null
     }
 }
 

@@ -93,7 +93,7 @@ class AuthController {
         // console.log(user._id)
         const { accessToken, refreshToken } = await tokenService.generateTokens({
             _id: user._id,
-            activated: false
+            // activated: false
         })
 
         // console.log(`RefreshToken : ${refreshToken}`)
@@ -104,7 +104,7 @@ class AuthController {
 
 
         res.cookie('refreshToken', refreshToken, {
-            maxAge: 1000 * 60 * 60 * 24 * 30,
+            maxAge: 1000 * 60 * 10,
             httpOnly: true
         })
 
@@ -161,7 +161,13 @@ class AuthController {
             const token = await tokenService
                 .findRefreshToken(userData._id, refreshTokenFromCookie)
 
-            // console.log(`Token : ${token}`
+            //^ ________ For Testing Purpose  ___________
+            // console.log("--------------------")
+            // console.log("UserID" + userData._id)
+            // console.log("refreshTokenFromCookie " + refreshTokenFromCookie)
+            // console.log(`Token : ${token}`)
+            // console.log("--------------------")
+
             if (!token) {
                 return res.status(401).json({
                     message: 'Invalid Refresh Token 2'

@@ -2,6 +2,9 @@ import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 
 
+import toast from 'react-hot-toast'
+
+
 import Card from '../../../Components/shared/Card/Card'
 import Button from '../../../Components/shared/Button/Button'
 
@@ -11,6 +14,8 @@ import { activate } from '../../../HTTP/index'
 
 import styles from './StepAvatar.module.css'
 import Loader from '../../../Components/shared/Loader/Loader'
+
+
 
 
 const StepAvatar = ({ onNext }) => {
@@ -38,7 +43,9 @@ const StepAvatar = ({ onNext }) => {
     const submit = async () => {
 
         if (!name || !avatar) {
-            alert('Name or Avatar Field is Empty')
+
+            toast.error('Name or Avatar Field is Empty')
+            // alert('Name or Avatar Field is Empty')
             return
         }
 
@@ -63,6 +70,7 @@ const StepAvatar = ({ onNext }) => {
         }
         finally {
             setLoading(false)
+            toast.success('Profile created please refresh')
         }
     }
 
@@ -73,37 +81,37 @@ const StepAvatar = ({ onNext }) => {
 
     if (loading)
         return <Loader message={"Activation in Progress . . ."} />
-
-    return (
-        <>
-            <Card
-                title={`Okay ${name} !`}
-                icon="monkey-emoji"
-            >
-                <p className={styles.subHeading}>How's this Photo</p>
-                <div className={styles.avatarWrapper}>
-                    <img className={styles.avatar} src={image} alt="" />
-                </div>
-                <div>
-                    <input
-                        onChange={captureImage}
-                        id='avatarInput'
-                        type='file'
-                        className={styles.avatarInput}
-                    />
-                    <label className={styles.avatarLabel} htmlFor="avatarInput">
-                        Choose a Different Photo
-                    </label>
-                </div>
-                <div>
-                    <div className={styles.actionButtonWrap}>
-                        <Button onClick={submit} text="Next" />
+    else
+        return (
+            <>
+                <Card
+                    title={`Okay ${name} !`}
+                    icon="monkey-emoji"
+                >
+                    <p className={styles.subHeading}>How's this Photo</p>
+                    <div className={styles.avatarWrapper}>
+                        <img className={styles.avatar} src={image} alt="" />
                     </div>
-                </div>
-            </Card>
-        </>
+                    <div>
+                        <input
+                            onChange={captureImage}
+                            id='avatarInput'
+                            type='file'
+                            className={styles.avatarInput}
+                        />
+                        <label className={styles.avatarLabel} htmlFor="avatarInput">
+                            Choose a Different Photo
+                        </label>
+                    </div>
+                    <div>
+                        <div className={styles.actionButtonWrap}>
+                            <Button onClick={submit} text="Next" />
+                        </div>
+                    </div>
+                </Card>
+            </>
 
-    )
+        )
 }
 
 export default StepAvatar

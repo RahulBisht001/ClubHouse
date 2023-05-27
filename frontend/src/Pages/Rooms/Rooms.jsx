@@ -1,24 +1,40 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import styles from './Rooms.module.css'
 
-import rooms from '../../dummyData'
+//! -----------This is Dummy Data just for testing purpose --------
+// import rooms from '../../dummyData'
+
 import RoomCard from '../../Components/RoomCard/RoomCard'
 import AddRoomModel from '../../Components/AddRoomModel/AddRoomModel'
 
-//^ Using Material UI Icons in place of shady images
+//! --------- Using Material UI Icons in place of shady images ------
 
 import SearchRoundedIcon from '@mui/icons-material/SearchRounded';
 import RecordVoiceOverRoundedIcon from '@mui/icons-material/RecordVoiceOverRounded'
+import { getAllRooms } from '../../HTTP';
 
-console.log(rooms[0])
+// console.log(rooms[0])
 
 
 
 
 const Rooms = () => {
 
+    const [rooms, setRooms] = useState([])
     const [showModel, setShowModel] = useState(false)
+
+    useEffect(() => {
+
+        const fetchRooms = async () => {
+            const allRooms = await getAllRooms()
+            console.log("roomsData")
+            console.log(allRooms.data)
+
+            setRooms(allRooms.data)
+        }
+        fetchRooms()
+    }, [])
 
     const showModelHandler = () => {
         setShowModel(true)
@@ -59,11 +75,7 @@ const Rooms = () => {
                 <div className={styles.roomList}>
                     {
                         rooms.map((room) => (
-                            <>
-                                <RoomCard key={room.id} room={room} />
-                                {/* <RoomCard key={room.id} room={room} />
-                                <RoomCard key={room.id} room={room} /> */}
-                            </>
+                            <RoomCard key={room.id} room={room} />
                         ))
                     }
                 </div>

@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 
 import './App.css'
+import { Toaster } from 'react-hot-toast'
 
 import Navigation from './Components/shared/Navigation/Navigation'
 import Home from './Pages/Home/Home'
@@ -13,6 +14,7 @@ import Rooms from './Pages/Rooms/Rooms'
 
 import { useSelector } from 'react-redux'
 import { useLoadingWithRefresh } from './hooks/useLoadingWithRefresh'
+import Room from './Pages/Room/Room'
 
 
 function App() {
@@ -22,45 +24,72 @@ function App() {
   return loading ?
     <Loader message={"Loading , Please wait . . ."} /> :
     (
-    <BrowserRouter>
+      <>
+        <Toaster
+          position='top-center'
+          toastOptions={{
+            success: {
+              theme: {
+                primary: '#4aed88',
+              }
+            },
+            error: {
+              theme: {
+                primary: 'red',
+              }
+            }
+          }}
+        >
+        </Toaster>
 
-      <Navigation />
+        <BrowserRouter>
 
-      <Routes>
+          <Navigation />
 
-        <Route path='/'
-          element={
-            <GuestRoute>
-              <Home />
-            </GuestRoute>
-          }
-        />
-        <Route path='/authenticate'
-          element={
-            <GuestRoute>
-              <Authenticate />
-            </GuestRoute>
-          }
-        />
-        <Route path='/activate'
-          element={
-            <SemiProtectedRoute>
-              <Activate />
-            </SemiProtectedRoute>
-          }
-        />
+          <Routes>
 
-        <Route path='/rooms'
-          element={
-            <ProtectedRoute>
-              <Rooms />
-            </ProtectedRoute>
-          }
-        />
+            <Route path='/'
+              element={
+                <GuestRoute>
+                  <Home />
+                </GuestRoute>
+              }
+            />
+            <Route path='/authenticate'
+              element={
+                <GuestRoute>
+                  <Authenticate />
+                </GuestRoute>
+              }
+            />
+            <Route path='/activate'
+              element={
+                <SemiProtectedRoute>
+                  <Activate />
+                </SemiProtectedRoute>
+              }
+            />
 
-      </Routes>
-    </BrowserRouter >
-  );
+            <Route path='/rooms'
+              element={
+                <ProtectedRoute>
+                  <Rooms />
+                </ProtectedRoute>
+              }
+            />
+
+            <Route path='/room/:id'
+              element={
+                <ProtectedRoute>
+                  <Room />
+                </ProtectedRoute>
+              }
+            />
+
+          </Routes>
+        </BrowserRouter >
+      </>
+    );
 }
 
 

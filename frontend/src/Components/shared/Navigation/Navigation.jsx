@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 
 
+import toast from 'react-hot-toast'
+
 import { setAuth } from '../../../store/authSlice'
 import { logout } from '../../../HTTP'
 
@@ -43,6 +45,9 @@ const Navigation = () => {
         try {
             const { data } = await logout()
             dispatch(setAuth(data))
+
+            toast.success('logout successfully')
+
         }
         catch (err) {
             console.log('Error in Logout Navigation Component')
@@ -50,7 +55,7 @@ const Navigation = () => {
         }
 
     }
-    console.log(isAuth)
+    // console.log(isAuth)
 
     return (
 

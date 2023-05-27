@@ -12,13 +12,13 @@ class TokenService {
 
     async generateTokens(payload) {
         const accessToken = jwt.sign(payload, accessTokenSecret, {
-            expiresIn: '1m'
+            expiresIn: 10 * 60 * 1000
         })
         const refreshToken = jwt.sign(payload, refreshTokenSecret, {
-            expiresIn: '1y'
+            expiresIn: 30 * 24 * 60 * 60 * 1000
         })
-        // console.log(`RefreshToken : ${refreshToken}`)
-        // console.log(`AccessToken : ${accessToken}`)
+        console.log(`RefreshToken : ${refreshToken}`)
+        console.log(`AccessToken : ${accessToken}`)
         return { accessToken, refreshToken }
     }
 
